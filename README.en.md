@@ -22,13 +22,6 @@ OPENAI_API_KEY=xxx
 DB_CONNECTION=mysql://test:test@127.0.0.1:3306/test
 ```
 
-For Chinese users, you can use [AIGCaaS](https://aigcaas.cn) instead of OpenAI, like below:
-
-```bash
-# aigcaas.cn platform secret key
-AIGCAAS_SECRET_ID=<AIGCaaS SecretId>
-AIGCAAS_SECRET_KEY=<AIGCaaS SecretKey>
-
 # MySQL
 DB_CONNECTION=mysql://test:test@127.0.0.1:3306/test
 ```

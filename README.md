@@ -28,13 +28,6 @@ OPENAI_API_KEY=xxx
 DB_CONNECTION=mysql://test:test@127.0.0.1:3306/test
 ```
 
-中国用户可以使用 [AIGCaaS](https://aigcaas.cn) 替代 OpenAI，如下：
-
-```bash
-# aigcaas.cn 平台密钥
-AIGCAAS_SECRET_ID=<AIGCaaS SecretId>
-AIGCAAS_SECRET_KEY=<AIGCaaS SecretKey>
-
 # MySQL
 DB_CONNECTION=mysql://test:test@127.0.0.1:3306/test
 ```

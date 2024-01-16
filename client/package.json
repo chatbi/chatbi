@@ -1,0 +1,39 @@
+{
+  "private": true,
+  "author": "yugasun <yuga_sun@163.com>",
+  "scripts": {
+    "build": "max build",
+    "dev": "max dev",
+    "format": "prettier --cache --write .",
+    "lint": "max lint --fix",
+    "setup": "max setup",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.1.0",
+    "@ant-design/pro-components": "^2.4.16",
+    "@antv/ava": "^3.0.2",
+    "@antv/ava-react": "^3.1.1",
+    "@antv/g2": "5.0.0",
+    "@antv/g2plot": "^2.3.39",
+    "@umijs/max": "^4.0.69",
+    "ahooks": "^3.7.7",
+    "antd": "^5.5.0",
+    "classnames": "^2.3.2",
+    "papaparse": "^5.4.1",
+    "react-markdown": "^8.0.7",
+    "react-syntax-highlighter": "^15.5.0",
+    "remark-gfm": "^3.0.1",
+    "vega-embed": "^6.22.1",
+    "zustand": "^4.3.8"
+  },
+  "devDependencies": {
+    "@types/papaparse": "^5.3.7",
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
+    "@types/react-syntax-highlighter": "^15.5.6",
+    "@umijs/lint": "^4.0.69",
+    "@unocss/cli": "^0.51.13",
+    "unocss": "^0.51.13"
+  }
+}

@@ -1,6 +1,11 @@
 # compiled output
+<<<<<<< HEAD
 /dist
 /node_modules
+=======
+dist
+node_modules
+>>>>>>> 46793ed (chore: transfer to monorepo)
 
 # Logs
 logs
@@ -35,4 +40,18 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 .env
+.env.local
 !docker/.env
+
+# client
+.umirc.local.ts
+config/config.local.ts
+client/src/.umi
+client/src/.umi-production
+client/src/.umi-test
+.umi
+.umi-production
+.umi-test
+dist
+.mfsu
+.swc

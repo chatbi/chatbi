@@ -44,12 +44,6 @@ OPENAI_API_KEY=xxx
 DB_CONNECTION=mysql://test:test@127.0.0.1:3306/test
 ```
 
-Install server dependencies:
-
-```bash
-pnpm install
-```
-
 ### 4. Install dependencies
 
 In the project root directory, execute:
@@ -63,7 +57,7 @@ pnpm install
 For local development demonstration, you can start MySQL through docker:
 
 ```bash
-cd ./server/docker && docker-compose up -d
+cd ./docker && docker compose up -d
 ```
 
 ### 6. Run

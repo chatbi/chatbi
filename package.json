@@ -4,9 +4,9 @@
   "description": "ChatBI is a BI system interacted by chat.",
   "main": "index.js",
   "scripts": {
-    "dev:server": "pnpm run -C server dev",
-    "dev:client": "pnpm run -C client dev",
-    "format": "prettier --write \"**/src/**/*.ts\" \"server/test/**/*.ts\"",
+    "dev:server": "pnpm run -C packages/server dev",
+    "dev:client": "pnpm run -C packages/client dev",
+    "format": "prettier --write \"**/src/**/*.ts\" \"packages/server/test/**/*.ts\"",
     "lint": "eslint \"**/{src,apps,libs,test}/**/*.ts\" --fix",
     "prepare": "husky install"
   },
@@ -28,19 +28,20 @@
   },
   "homepage": "https://github.com/chatbi/chatbi#readme",
   "devDependencies": {
-    "@types/node": "^16.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
-    "@typescript-eslint/parser": "^5.0.0",
-    "eslint": "^8.40.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
+    "@types/node": "^16.18.114",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "debug": "^4.3.7",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.2",
-    "prettier": "^2.3.2",
-    "stylelint": "^15.6.2",
-    "ts-loader": "^9.2.3",
-    "ts-node": "^10.0.0",
+    "lint-staged": "^13.3.0",
+    "prettier": "^2.8.8",
+    "stylelint": "^15.11.0",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
     "tsconfig-paths": "4.0.0",
-    "typescript": "^4.3.5"
+    "typescript": "^4.9.5"
   }
 }

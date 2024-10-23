@@ -1,0 +1,63 @@
+{
+  "name": "@chatbi/server",
+  "version": "0.0.1",
+  "description": "",
+  "author": "yugasun",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "nest build",
+    "dev": "nest start --watch",
+    "start": "nest start",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/main",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "test": "jest --config ./test/jest-unit.json",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
+  },
+  "dependencies": {
+    "@nestjs/axios": "^2.0.0",
+    "@nestjs/common": "^9.4.3",
+    "@nestjs/config": "^2.3.4",
+    "@nestjs/core": "^9.4.3",
+    "@nestjs/platform-express": "^9.4.3",
+    "@nestjs/typeorm": "^9.0.1",
+    "axios": "^1.7.7",
+    "chatgpt": "^5.2.5",
+    "dotenv": "^16.4.5",
+    "knex": "^2.5.1",
+    "langchain": "^0.0.75",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.11.3",
+    "nestjs-pino": "^3.5.0",
+    "openai": "^3.3.0",
+    "pino-http": "^8.6.1",
+    "reflect-metadata": "^0.1.14",
+    "rimraf": "^3.0.2",
+    "rxjs": "^7.8.1",
+    "typeorm": "^0.3.20"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^9.5.0",
+    "@nestjs/schematics": "^9.2.0",
+    "@nestjs/testing": "^9.4.3",
+    "@types/dotenv": "^8.2.3",
+    "@types/express": "^4.17.21",
+    "@types/jest": "28.1.4",
+    "@types/knex": "^0.16.1",
+    "@types/supertest": "^2.0.16",
+    "jest": "28.1.2",
+    "source-map-support": "^0.5.21",
+    "supertest": "^6.3.4",
+    "ts-jest": "28.0.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "packageManager": "pnpm@7.27.0"
+}

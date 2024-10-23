@@ -35,19 +35,31 @@ npm install -g pnpm
 进入 `server` 目录，复制 `.env.example` 到 `.env` 并填写环境变量，如下：
   
 ```bash
-# Database
+# GPT 配置
 OPENAI_API_BASE_URL=https://api.openai.com
 OPENAI_API_KEY=xxx
+OPENAI_MODEL=xxx
 
 # MySQL
 DB_CONNECTION=mysql://test:test@127.0.0.1:3306/test
 ```
 
-安装服务端依赖：
+### 3.1 服务端配置 - 阿里云灵积
+
+如果你使用阿里云灵积，可以参考以下配置：
 
 ```bash
-pnpm install
+# GPT 配置
+OPENAI_API_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode
+OPENAI_API_KEY=sk-xxx
+OPENAI_MODEL=qwen-max
+
+# MySQL
+DB_CONNECTION=mysql://test:test@127.0.0.1:3306/test
 ```
+
+更多关于阿里云灵积的信息，参考：[阿里云灵积](https://help.aliyun.com/zh/dashscope/developer-reference/compatibility-of-openai-with-dashscope?spm=a2c4g.11186623.0.0.53ca2a9dia9CNJ)
+
 
 ### 4. 安装依赖
 
@@ -62,7 +74,7 @@ pnpm install
 为了本地开发演示，可以通过 docker 启动 MySQL：
 
 ```bash
-cd ./server/docker && docker-compose up -d
+cd ./docker && docker compose up -d
 ```
 
 ### 6. 运行

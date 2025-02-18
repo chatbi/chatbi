@@ -40,6 +40,8 @@ Go to the `server` directory, copy `.env.example` to `.env`, and fill in the env
 OPENAI_API_BASE_URL=https://api.openai.com
 OPENAI_API_KEY=xxx
 
+# database type
+DB_TYPE=mysql
 # MySQL
 DB_CONNECTION=mysql://test:test@127.0.0.1:3306/test
 ```

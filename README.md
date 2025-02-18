@@ -40,6 +40,8 @@ OPENAI_API_BASE_URL=https://api.openai.com
 OPENAI_API_KEY=xxx
 OPENAI_MODEL=xxx
 
+# database type
+DB_TYPE=mysql
 # MySQL
 DB_CONNECTION=mysql://test:test@127.0.0.1:3306/test
 ```
@@ -54,6 +56,8 @@ OPENAI_API_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode
 OPENAI_API_KEY=sk-xxx
 OPENAI_MODEL=qwen-max
 
+# database type
+DB_TYPE=mysql
 # MySQL
 DB_CONNECTION=mysql://test:test@127.0.0.1:3306/test
 ```

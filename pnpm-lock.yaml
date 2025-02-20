@@ -129,9 +129,6 @@ importers:
 
   packages/server:
     dependencies:
-      '@aigcaas/chatgpt':
-        specifier: ^5.2.4
-        version: 5.2.4
       '@nestjs/axios':
         specifier: ^2.0.0
         version: 2.0.0(@nestjs/common@9.4.3)(axios@1.7.7)(reflect-metadata@0.1.14)(rxjs@7.8.1)
@@ -240,22 +237,6 @@ packages:
       lodash.debounce: 4.0.8
       lodash.throttle: 4.1.1
       react: 18.3.1
-    dev: false
-
-  /@aigcaas/chatgpt@5.2.4:
-    resolution: {integrity: sha512-koBH8ASDeUtwI3ePFjvVfXb/cBmR9pVXB4jFrqZoRi8l07ZE9C9x0ipaYBFznVoSnGJFHJNRzHH9MDqDZN9Pbg==}
-    engines: {node: '>=18'}
-    hasBin: true
-    dependencies:
-      '@dqbd/tiktoken': 1.0.17
-      cac: 6.7.14
-      conf: 11.0.2
-      eventsource-parser: 1.1.2
-      keyv: 4.5.4
-      p-timeout: 6.1.3
-      quick-lru: 6.1.2
-      read-pkg-up: 9.1.0
-      uuid: 9.0.1
     dev: false
 
   /@ampproject/remapping@2.3.0:

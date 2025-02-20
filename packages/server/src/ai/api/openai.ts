@@ -1,4 +1,4 @@
-import { ChatGPTAPI, type ChatMessage } from '@aigcaas/chatgpt';
+import { ChatGPTAPI, type ChatMessage } from 'chatgpt';
 import { Logger } from '@nestjs/common';
 import axios from 'axios';
 import { envs } from '../../config/envs.js';

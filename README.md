@@ -94,3 +94,13 @@ $ pnpm run dev:server
 ```bash
 $ pnpm run dev:client
 ```
+
+## 赞助
+
+如果你觉得这个项目对你有帮助，欢迎赞助我：
+
+<img width="300" src="https://static.sls.plus/wechat.jpg" alt="微信扫码支持"/>
+
+## License
+
+[GPL-3.0 license](./LICENSE)

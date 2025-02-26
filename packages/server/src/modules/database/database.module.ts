@@ -8,10 +8,11 @@ import { DatabaseService } from './database.service.js';
   imports: [
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: (config: ConfigService) => {
+      useFactory: (configService: ConfigService) => {
         return {
-          type: config.get('DB_TYPE'),
-          url: config.get('DB_CONNECTION_URL'),
+          logging: true,
+          type: configService.get('DB_TYPE'),
+          url: configService.get('DB_CONNECTION_URL'),
         };
       },
     }),

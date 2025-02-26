@@ -1,11 +1,6 @@
 # compiled output
-<<<<<<< HEAD
-/dist
-/node_modules
-=======
-dist
-node_modules
->>>>>>> 46793ed (chore: transfer to monorepo)
+dist/
+node_modules/
 
 # Logs
 logs
@@ -55,3 +50,7 @@ client/src/.umi-test
 dist
 .mfsu
 .swc
+
+*.sqlite
+*.ddb
+*.ddb.*

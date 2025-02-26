@@ -1,0 +1,23 @@
+{
+  "name": "@chatbi/copilot",
+  "version": "0.0.1",
+  "description": "Chatbot CoPilot",
+  "author": "yugasun <yugasun.ai@gmail.com>",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "dev": "tsx app.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^1.1.14",
+    "@ax-llm/ax": "^11.0.22",
+    "ai": "^4.1.46",
+    "dotenv": "^16.4.7"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "tsx": "^4.19.3"
+  }
+}

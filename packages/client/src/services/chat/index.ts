@@ -1,2 +1,2 @@
-import * as ChatController from './ChatController';
-export { ChatController };
+import * as ChatService from './ChatService';
+export { ChatService };

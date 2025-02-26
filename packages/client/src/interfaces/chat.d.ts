@@ -15,12 +15,22 @@ declare namespace Chat {
     dataSource: IDataRow[];
   }
 
+  type MessageRole = 'user' | 'assistant' | 'system';
+  type MessageType = 'text' | 'table' | 'markdown' | 'image' | 'custom' | 'ava';
+
   // messages: IMessage[], metas: IField[]
-  interface IMessage {
-    role: string;
-    content: string;
+  interface IChatMessage {
+    type?: MessageType;
+    role: MessageRole;
+    content: string | ReactNode;
     data?: Record<string, any>[];
-    autoVizType?: 'ava' | 'vega';
+    autoVizType?: 'ava';
+  }
+
+  interface IMessage {
+    id: string;
+    message: IChatMessage;
+    status: 'success' | 'loading';
   }
 
   interface IChatgptResponse {
@@ -43,8 +53,8 @@ declare namespace Chat {
   }
 
   interface IChatRequest {
-    type: string;
-    text: string;
+    question: string;
+    type?: string;
     autoVisualize?: boolean;
   }
 
@@ -70,7 +80,7 @@ declare namespace Chat {
 
   interface IChatResponse {
     success: boolean;
-    content: string;
+    data: any;
     table: ITableResponse | null;
     message: string;
   }

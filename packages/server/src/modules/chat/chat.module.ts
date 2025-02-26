@@ -1,8 +1,8 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
-import { AiAgent } from '../../ai/agent/index.js';
 import { ChatController } from './chat.controller.js';
 import { ChatService } from './chat.service.js';
+import { SqlAgent } from '../../agent/SqlAgent.js';
 
 @Module({
   imports: [
@@ -13,7 +13,7 @@ import { ChatService } from './chat.service.js';
     }),
   ],
   controllers: [ChatController],
-  providers: [AiAgent, ChatService],
+  providers: [SqlAgent, ChatService],
 })
 export class ChatModule {
   // noop

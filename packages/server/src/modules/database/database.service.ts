@@ -1,22 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 
 interface DatabaseRow {
   Database: string;
 }
 
-function filterMysqlSystemDatabases(databases: DatabaseRow[]) {
-  return databases.filter(
-    (d) =>
-      d.Database !== 'information_schema' &&
-      d.Database !== 'mysql' &&
-      d.Database !== 'performance_schema' &&
-      d.Database !== 'sys',
-  );
-}
-
 @Injectable()
 export class DatabaseService {
+  logger = new Logger(DatabaseService.name);
+
   constructor(private dataSource: DataSource) {
     // noop
   }
@@ -33,30 +25,72 @@ export class DatabaseService {
   }
 
   async getSchemas() {
-    const res = await this.dataSource.query<DatabaseRow[]>('SHOW DATABASES');
-    const dbs = filterMysqlSystemDatabases(res).map((d) => d.Database);
-    const dbSchemas: Database.DatabaseSchema[] = await Promise.all(
-      dbs.map(async (db) => {
-        const schemas = await this.getTables(db);
+    const tableNameSql = `
+    SELECT table_name
+    FROM information_schema.tables
+    WHERE table_schema = 'public';
+    `;
+    const tableNameList = await this.dataSource.query<{ table_name: string }[]>(
+      tableNameSql,
+    );
+
+    this.logger.log(`Table Name List: ${JSON.stringify(tableNameList)}`);
+
+    const res = await this.dataSource.query<DatabaseRow[]>(`
+            SELECT table_name
+            FROM information_schema.tables
+            WHERE table_schema = 'public';
+            
+    `);
+
+    this.logger.log(`getSchemas: ${JSON.stringify(res)}`);
+    const tableSchema = await Promise.all(
+      tableNameList.map(async (d) => {
+        const schemas = await this.getTableScheme(d.table_name);
         return {
-          database: db,
+          database: 'chatbi',
           schemas: schemas,
         };
       }),
     );
-    return dbSchemas;
+    return tableSchema;
   }
 
-  async getTables(database: string) {
-    const res = await this.dataSource.query<Record<string, string>[]>(
-      `SHOW TABLES FROM ${database}`,
+  async getTableScheme(tableName: string): Promise<Database.TableSchema> {
+    const res = await this.dataSource.query<
+      {
+        tableSchema: string;
+        tableMame: string;
+        column: string;
+        type: string;
+        nullable: string;
+      }[]
+    >(
+      `SELECT 
+        c.table_schema as tableSchema,
+        c.table_name as tableMame,
+        c.column_name as column,
+        c.udt_name as type,
+        c.is_nullable as nullable
+    FROM 
+        information_schema.columns c
+    WHERE 
+        c.table_schema = 'public' AND c.table_name = '${tableName}'
+    ORDER BY 
+        c.table_schema, c.table_name, c.ordinal_position;`,
     );
-    const tables = res.map((d) => d[`Tables_in_${database}`]);
-    const tableSchemas = await Promise.all(
-      tables.map(async (table) => await this.getTableSchema(database, table)),
-    );
-
-    return tableSchemas;
+    const fields = res.map((d) => {
+      return {
+        name: d.column,
+        type: d.type,
+        required: d.nullable === 'NO',
+      };
+    });
+    return {
+      database: 'chatbi',
+      table: tableName,
+      fields: fields,
+    };
   }
 
   async getTableSchema(

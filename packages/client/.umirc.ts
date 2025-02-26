@@ -1,6 +1,7 @@
 import { defineConfig } from '@umijs/max';
 
 export default defineConfig({
+  mako: {},
   antd: {},
   access: {},
   model: {},
@@ -20,9 +21,9 @@ export default defineConfig({
       component: './Home',
     },
     {
-      name: 'Query',
-      path: '/query',
-      component: './Query',
+      name: 'Playground',
+      path: '/playground',
+      component: './Playground',
     },
 
     {
@@ -37,5 +38,9 @@ export default defineConfig({
   unocss: {
     // 检测 className 的文件范围，若项目不包含 src 目录，可使用 `pages/**/*.tsx`
     watch: ['src/**/*.tsx'],
+  },
+
+  define: {
+    'process.env.UMI_APP_SERVER_URL': process.env.UMI_APP_SERVER_URL,
   },
 });

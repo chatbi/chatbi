@@ -5,9 +5,15 @@ declare namespace Chat {
     text: string;
   }
   interface Message {
-    type: 'command' | 'chat';
+    type: 'chat' | 'cache';
     conversationId: string;
     text: string;
+
+    /**
+     * command for cache
+     */
+    action: 'get' | 'set' | 'clear';
+
     autoVisualize?: boolean;
   }
 
@@ -55,5 +61,10 @@ declare namespace Chat {
     success: boolean;
     error?: string;
     metadatas?: Chat.Metadata[];
+  }
+
+  interface FewShot {
+    question: string;
+    answer: string;
   }
 }

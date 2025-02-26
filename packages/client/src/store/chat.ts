@@ -1,5 +1,8 @@
+import { logger } from '@/utils/logger';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
+
+const log = logger.extend('ChatStore');
 
 type ChatStore = {
   prompt: string;
@@ -65,6 +68,7 @@ const useChatDbStore = create(
         });
       },
       setMessages: (messages: Chat.IMessage[]) => {
+        log('setMessages', messages);
         set((state) => {
           return {
             messages: [...state.messages, ...messages],
@@ -72,6 +76,7 @@ const useChatDbStore = create(
         });
       },
       addMessage: (messages: Chat.IMessage[]) => {
+        log('addMessage', messages);
         set((state) => {
           return {
             messages: [...state.messages, ...messages],

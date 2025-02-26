@@ -1,16 +1,116 @@
 services:
-  # Refer to: https://hub.docker.com/_/mysql
-  mysql:
-    image: mysql:8.0
-    container_name: chatbi-mysql
-    command: --default-authentication-plugin=mysql_native_password
+  postgres:
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: admin
-      MYSQL_USER: test
-      MYSQL_PASSWORD: test
-      MYSQL_DATABASE: test
+    image: postgres:15
+    platform: linux/arm64
+    container_name: chatbi-postgres
     ports:
-      - "3306:3306"
+      - 15432:5432
+    environment:
+      POSTGRES_USER: chatbi
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: chatbi
+
     volumes:
-      - "./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+      - ./cube/data:/cube/conf
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+  redis:
+    restart: always
+    image: redis:7
+    platform: linux/arm64
+    container_name: chatbi-redis
+    ports:
+      - 16379:6379
+
+  cube_api:
+    restart: always
+    image: cubejs/cube:v1
+    container_name: chatbi-cube
+    platform: linux/arm64
+    ports:
+      - 4000:4000
+      - 3000:3000
+    environment:
+      - CUBEJS_DATASOURCES=default
+      - CUBEJS_DEV_MODE=true
+      - CUBEJS_DB_TYPE=postgres
+      # - CUBEJS_DB_HOST=demo-db.cube.dev
+      - CUBEJS_DB_NAME=chatbi
+      - CUBEJS_DB_HOST=postgres
+      - CUBEJS_DB_USER=chatbi
+      - CUBEJS_DB_PASS=12345
+      - CUBEJS_DB_PORT=5432
+      - CUBEJS_API_SECRET=secret
+    volumes:
+      - ./cube/data:/cube/conf
+    depends_on:
+      - cube_refresh_worker
+      - cubestore_router
+      - cubestore_worker_1
+      - cubestore_worker_2
+
+  cube_refresh_worker:
+    restart: always
+    image: cubejs/cube:v1
+    container_name: chatbi-cube-refresh-worker
+    platform: linux/arm64
+    environment:
+      - CUBEJS_DATASOURCES=default
+      - CUBEJS_DEV_MODE=true
+      - CUBEJS_DB_TYPE=postgres
+      # - CUBEJS_DB_HOST=demo-db.cube.dev
+      - CUBEJS_DB_HOST=postgres
+      - CUBEJS_DB_PORT=5432
+      - CUBEJS_DB_NAME=chatbi
+      - CUBEJS_DB_USER=chatbi
+      - CUBEJS_DB_PASS=12345
+      - CUBEJS_DB_EXPORT_BUCKET=cubestore
+      - CUBEJS_CUBESTORE_HOST=cubestore_router
+      - CUBEJS_API_SECRET=secret
+      - CUBEJS_REFRESH_WORKER=true
+    volumes:
+      - ./cube/data:/cube/conf
+
+  cubestore_router:
+    restart: always
+    image: cubejs/cubestore:dev
+    container_name: chatbi-cubestore-router
+    environment:
+      - CUBESTORE_WORKERS=cubestore_worker_1:10001,cubestore_worker_2:10002
+      - CUBESTORE_REMOTE_DIR=/cube/data
+      - CUBESTORE_META_PORT=9999
+      - CUBESTORE_SERVER_NAME=cubestore_router:9999
+    volumes:
+      - ./cube/data/.cubestore:/cube/data
+
+  cubestore_worker_1:
+    restart: always
+    image: cubejs/cubestore:v1
+    platform: linux/amd64
+    container_name: chatbi-cubestore-worker-1
+    environment:
+      - CUBESTORE_WORKERS=cubestore_worker_1:10001,cubestore_worker_2:10002
+      - CUBESTORE_SERVER_NAME=cubestore_worker_1:10001
+      - CUBESTORE_WORKER_PORT=10001
+      - CUBESTORE_REMOTE_DIR=/cube/data
+      - CUBESTORE_META_ADDR=cubestore_router:9999
+    volumes:
+      - ./cube/data/.cubestore:/cube/data
+    depends_on:
+      - cubestore_router
+
+  cubestore_worker_2:
+    restart: always
+    image: cubejs/cubestore:dev
+    container_name: chatbi-cubestore-worker-2
+    environment:
+      - CUBESTORE_WORKERS=cubestore_worker_1:10001,cubestore_worker_2:10002
+      - CUBESTORE_SERVER_NAME=cubestore_worker_2:10002
+      - CUBESTORE_WORKER_PORT=10002
+      - CUBESTORE_REMOTE_DIR=/cube/data
+      - CUBESTORE_META_ADDR=cubestore_router:9999
+    volumes:
+      - ./cube/data/.cubestore:/cube/data
+    depends_on:
+      - cubestore_router

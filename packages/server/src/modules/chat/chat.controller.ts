@@ -17,14 +17,9 @@ export class ChatController {
     return this.chatService.test();
   }
 
-  @Post('/')
+  @Post('/analysis')
   async chat(@Body() payload: Chat.Message) {
     return this.chatService.chat(payload);
-  }
-
-  @Post('/vega')
-  async vega(@Body() payload: Chat.VegaMessage) {
-    return this.chatService.vega(payload);
   }
 
   @Get('/config')
